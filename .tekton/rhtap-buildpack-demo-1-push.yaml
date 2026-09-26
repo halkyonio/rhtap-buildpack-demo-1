@@ -71,24 +71,6 @@ spec:
         workspaces:
           - workspace: workspace
             name: source-dir
-      - name: show-summary
-        when:
-          - input: $(params.enable-sbom)
-            operator: in
-            values:
-              - "true"
-        params:
-          - name: pipelinerun-name
-            value: $(context.pipelineRun.name)
-          - name: git-url
-            value: $(tasks.clone-repository.results.url)?rev=$(tasks.clone-repository.results.commit)
-          - name: image-url
-            value: $(params.output-image)
-          - name: build-task-status
-            value: $(tasks.build-container.status)
-        taskRef:
-          bundle: quay.io/redhat-appstudio-tekton-catalog/task-summary:0.1@sha256:e69f53a3991d7088d8aa2827365ab761ab7524d4269f296b4a78b0f085789d30
-          name: summary
     params:
       - description: Source Repository URL
         name: git-url
